@@ -1,0 +1,336 @@
+-- New example script written by wally
+-- You can suggest changes with a pull request or something
+
+local repo = 'https://raw.githubusercontent.com/wally-rblx/LinoriaLib/main/'
+
+local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/polarsblade/blazebackup/main/main'))()
+local ThemeManager = loadstring(game:HttpGet('https://raw.githubusercontent.com/polarsblade/blazebackup/main/theme'))()
+local SaveManager = loadstring(game:HttpGet('https://raw.githubusercontent.com/polarsblade/blazebackup/main/config'))()
+
+local Window = Library:CreateWindow({
+    Title = 'BludLock | Elevate your skills',
+    Center = true,
+    AutoShow = true,
+    TabPadding = 4,
+    MenuFadeTime = 0.2,
+    Size = UDim2.new(0.5,0,1,0),
+    Position = UDim2.new(0.1, 0.1, 0.1, 0.1)
+})
+
+local Tabs = {
+    -- Creates a new tab titled Main
+    Main = Window:AddTab('Main'),
+    ['UI Settings'] = Window:AddTab('UI Settings'),
+}
+
+local LeftGroupBox2 = Tabs.Main:AddLeftGroupbox('Main')
+
+LeftGroupBox2:AddToggle('Camlock', {
+    Text = 'Camlock',
+    Default = false, 
+    Tooltip = 'Enables Camlock', 
+})
+
+Toggles.Camlock:OnChanged(function()
+    -- Code
+end)
+
+Toggles.Camlock:AddKeyPicker('CamlockBind', {
+    Default = 'None', 
+    SyncToggleState = false, 
+
+    Mode = 'Toggle',
+
+    Text = 'Enable', 
+    NoUI = false,
+})
+
+Library:SetWatermarkVisibility(true)
+
+local FrameTimer = tick()
+local FrameCounter = 0;
+local FPS = 60;
+
+local WatermarkConnection = game:GetService('RunService').RenderStepped:Connect(function()
+    FrameCounter += 1;
+
+    if (tick() - FrameTimer) >= 1 then
+        FPS = FrameCounter;
+        FrameTimer = tick();
+        FrameCounter = 0;
+    end;
+
+    Library:SetWatermark(('BludLock | %s fps | %s ms'):format(
+        math.floor(FPS),
+        math.floor(game:GetService('Stats').Network.ServerStatsItem['Data Ping']:GetValue())
+    ));
+end);
+
+Library.KeybindFrame.Visible = true; -- todo: add a function for this
+
+Library:OnUnload(function()
+    WatermarkConnection:Disconnect()
+
+    print('Unloaded!')
+    Library.Unloaded = true
+end)
+
+LeftGroupBox2:AddInput('Prediction', {
+    Default = '0.15634',
+    Numeric = true, 
+    Finished = true,
+    Text = 'Prediction',
+    Tooltip = 'Example: 0.15634', 
+    Placeholder = '...', 
+    Callback = function(int)
+        
+    end 
+})
+
+LeftGroupBox2:AddToggle('pingBased', {
+    Text = 'Ping Based',
+    Default = false, 
+    Tooltip = 'Automatic Sets', 
+})
+
+LeftGroupBox2:AddDropdown('MyDropdown', {
+    Values = { 'HumanoidRootPart', 'is', 'a', 'dropdown' },
+    Default = 1, -- number index of the value / string
+    Multi = false, -- true / false, allows multiple choices to be selected
+
+    Text = 'Hitpart',
+    Tooltip = 'This is a tooltip', -- Information shown when you hover over the dropdown
+
+    Callback = function(Value)
+        print('[cb] Dropdown got changed. New value:', Value)
+    end
+})
+
+Options.MyDropdown:OnChanged(function()
+    print('Dropdown got changed. New value:', Options.MyDropdown.Value)
+end)
+
+LeftGroupBox2:AddToggle('Notifications', {
+    Text = 'Notifications',
+    Default = false, 
+    Tooltip = 'Automatic Sets', 
+})
+
+LeftGroupBox2:AddToggle('unlockOnDeath', {
+    Text = 'Unlock On Death',
+    Default = false, 
+    Tooltip = 'Automatic Sets', 
+})
+
+Options.Prediction:OnChanged(function()
+    -- Code
+end)
+
+--[[LeftGroupBox2:AddInput('HorizontalPrediction', {
+    Default = '0.152848',
+    Numeric = true, 
+    Finished = true,
+    Text = 'HorizontalPrediction',
+    Tooltip = 'Example: 0.152848', 
+    Placeholder = '...', 
+    Callback = function(int)
+        
+    end 
+})
+
+Options.HorizontalPrediction:OnChanged(function()
+    -- Code
+end)
+
+LeftGroupBox2:AddInput('VerticalPrediction', {
+    Default = '0.135',
+    Numeric = true, 
+    Finished = true,
+    Text = 'VerticalPrediction',
+    Tooltip = 'Example: 0.135', 
+    Placeholder = '...', 
+    Callback = function(int)
+        
+    end 
+})
+
+Options.VerticalPrediction:OnChanged(function()
+    -- Code
+end)
+
+LeftGroupBox2:AddInput('XPrediction', {
+    Default = '1',
+    Numeric = true, 
+    Finished = true,
+    Text = 'XPrediction',
+    Tooltip = 'Example: 1', 
+    Placeholder = '...', 
+    Callback = function(int)
+        
+    end 
+})
+
+Options.XPrediction:OnChanged(function()
+    -- Code
+end)
+
+LeftGroupBox2:AddInput('YPrediction', {
+    Default = '1',
+    Numeric = true, 
+    Finished = true,
+    Text = 'YPrediction',
+    Tooltip = 'Example: 1', 
+    Placeholder = '...', 
+    Callback = function(int)
+        
+    end 
+})
+
+Options.YPrediction:OnChanged(function()
+    -- Code
+end)]]
+
+local LeftGroupBox2 = Tabs.Main:AddLeftGroupbox('Shake')
+
+LeftGroupBox2:AddToggle('Shake', {
+    Text = 'Shake',
+    Default = false, 
+    Tooltip = 'Shakes On The Target', 
+})
+
+LeftGroupBox2:AddInput('shakePower', {
+    Default = '0',
+    Numeric = true, 
+    Finished = true,
+    Text = 'Power',
+    Tooltip = 'Example: 5', 
+    Placeholder = '...', 
+    Callback = function(int)
+        
+    end 
+})
+
+Toggles.Shake:OnChanged(function()
+    -- Code
+end)
+
+-- OnClick is only fired when you press the keybind and the mode is Toggle
+-- Otherwise, you will have to use Keybind:GetState()
+Options.CamlockBind:OnClick(function()
+    print('Keybind clicked!', Options.CamlockBind:GetState())
+end)
+
+Options.CamlockBind:OnChanged(function()
+    print('Keybind changed!', Options.CamlockBind.Value)
+end)
+
+task.spawn(function()
+    while task.wait() do
+        -- example for checking if a keybind is being pressed
+        local state = Options.CamlockBind:GetState()
+        if state then
+            print('KeyPicker is being held down')
+        end
+
+        if Library.Unloaded then break end
+    end
+end)
+
+Options.CamlockBind:SetValue({ 'MB2', 'Toggle' }) -- Sets keybind to MB2, mode to Hold
+
+-- Long text label to demonstrate UI scrolling behaviour.
+
+-- Library functions
+-- Sets the watermark visibilit
+
+-- Example of dynamically-updating watermark with common traits (fps and ping)
+
+
+-- UI Settings
+local MenuGroup = Tabs['UI Settings']:AddLeftGroupbox('Menu')
+
+-- I set NoUI so it does not show up in the keybinds menu
+MenuGroup:AddButton('Unload', function() Library:Unload() end)
+MenuGroup:AddLabel('Menu bind'):AddKeyPicker('MenuKeybind', { Default = 'End', NoUI = false, Text = 'Menu keybind' })
+
+Library.ToggleKeybind = Options.MenuKeybind -- Allows you to have a custom keybind for the menu
+
+-- Addons:
+-- SaveManager (Allows you to have a configuration system)
+-- ThemeManager (Allows you to have a menu theme system)
+
+-- Hand the library over to our managers
+ThemeManager:SetLibrary(Library)
+SaveManager:SetLibrary(Library)
+
+-- Ignore keys that are used by ThemeManager.
+-- (we dont want configs to save themes, do we?)
+SaveManager:IgnoreThemeSettings()
+
+-- Adds our MenuKeybind to the ignore list
+-- (do you want each config to have a different menu key? probably not.)
+SaveManager:SetIgnoreIndexes({ 'MenuKeybind' })
+
+-- use case for doing it this way:
+-- a script hub could have themes in a global folder
+-- and game configs in a separate folder per game
+ThemeManager:SetFolder('MyScriptHub')
+SaveManager:SetFolder('MyScriptHub/specific-game')
+
+-- Builds our config menu on the right side of our tab
+SaveManager:BuildConfigSection(Tabs['UI Settings'])
+
+-- Builds our theme menu (with plenty of built in themes) on the left side
+-- NOTE: you can also call ThemeManager:ApplyToGroupbox to add it to a specific groupbox
+ThemeManager:ApplyToTab(Tabs['UI Settings'])
+
+-- You can use the SaveManager:LoadAutoloadConfig() to load a config
+-- which has been marked to be one that auto loads!
+SaveManager:LoadAutoloadConfig()
+--[[
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/cat"))() --you can go into the github link and copy all of it and modify it for yourself.
+local Window = Library:CreateWindow("BladLock (gui made by rrcelex)", Vector2.new(369, 369), Enum.KeyCode.P) --you can change your UI keybind
+local AimingTab = Window:CreateTab("Tab 1") --you can rename this tab to whatever you want --you can also change the tabs code, for example "AimingTab" can be changed to "FunnyCoolTab" etc.
+
+
+local testSection = AimingTab:CreateSector("Predictions", "left")  --you can  change the section code, for example "testsection" can be changed to "FunnyCoolSection" etc.
+
+testSection:AddButton("Lock tool", function(IhateGayPeople)
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Jaejaethatman/Blad/main/Lock"))()
+end)
+
+testSection:AddTextbox("horizontal Prediction", nil, function(State)
+
+end)
+
+testSection:AddTextbox("Y Prediction", nil, function(State)
+
+end)
+
+testSection:AddTextbox("X Prediction", nil, function(State)
+
+end)
+
+testSection:AddTextbox("vertical Prediction", nil, function(State)
+
+end)
+
+local testSection = AimingTab:CreateSector("Silent-Fov", "right")  --you can  change the section code, for example "testsection" can be changed to "FunnyCoolSection" etc.
+
+testSection:AddTextbox("Fov-silent", nil, function(State)
+
+end)
+
+testSection:AddButton("Enable", function(IhateGayPeople)
+    print("button")
+end)
+
+testSection:AddTextbox("shake", nil, function(State)
+
+end)
+
+testSection:AddToggle("LOGO", false, function(first)
+    print("ejejejejejeje") loadstring(game:HttpGet("https://pastebin.com/raw/6Y4WEZpq"))()
+end)
+
+loadstring(game:HttpGet("https://pastebin.com/raw/6Y4WEZpq"))()]]
